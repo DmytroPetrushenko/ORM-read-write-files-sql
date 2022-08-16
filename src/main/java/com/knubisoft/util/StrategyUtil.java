@@ -17,8 +17,10 @@ public class StrategyUtil {
     private final List<? extends WriterStrategy<?>> writerStrategyList;
 
     public StrategyUtil() {
-        this.readerStrategyList = (List<? extends ReaderStrategy<?>>) getStrategyList(READER_STRATEGY);
-        this.writerStrategyList = (List<? extends WriterStrategy<?>>) getStrategyList(WRITER_STRATEGY);
+        this.readerStrategyList =
+                (List<? extends ReaderStrategy<?>>) getStrategyList(READER_STRATEGY);
+        this.writerStrategyList =
+                (List<? extends WriterStrategy<?>>) getStrategyList(WRITER_STRATEGY);
     }
 
     private <T> List<? extends T> getStrategyList(Class<T> strategy) {

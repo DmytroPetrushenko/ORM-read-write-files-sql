@@ -2,9 +2,7 @@ package com.knubisoft.dto;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @AllArgsConstructor
 public class Table {

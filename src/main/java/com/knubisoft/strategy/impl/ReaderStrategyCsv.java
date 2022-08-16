@@ -4,17 +4,18 @@ import com.knubisoft.dto.DataReadWriteSource;
 import com.knubisoft.dto.StringReadWriteSource;
 import com.knubisoft.dto.Table;
 import com.knubisoft.strategy.ReaderStrategy;
-
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ReaderStrategyCsv implements ReaderStrategy<DataReadWriteSource> {
-    private final static String PATTERN = "(([\\w\\d\\-]+[,])+[\\w\\d\\-]+\\b)";
+    private static final String PATTERN = "(([\\w\\-]+,)+[\\w\\-]+\\b)";
+
     @Override
     public boolean isApplied(DataReadWriteSource data) {
         if (data instanceof StringReadWriteSource) {
-            return ((StringReadWriteSource) data).getContent().replaceAll("[\\n\\r]", "").matches(PATTERN);
+            return ((StringReadWriteSource) data).getContent()
+                    .replaceAll("[\\n\\r]", "").matches(PATTERN);
         }
         return false;
     }
@@ -28,13 +29,15 @@ public class ReaderStrategyCsv implements ReaderStrategy<DataReadWriteSource> {
         return new Table(table);
     }
 
-    private Map<Integer, Map<String, String>> createTable(String[] rows, Map<Integer, String> mapping) {
+    private Map<Integer, Map<String, String>> createTable(String[] rows,
+                                                          Map<Integer, String> mapping) {
         return IntStream.range(1, rows.length)
                 .boxed()
                 .collect(Collectors.toMap(num -> num - 1, num -> createRow(num, rows, mapping)));
     }
 
-    private Map<String, String> createRow(Integer num, String[] rows, Map<Integer, String> mapping) {
+    private Map<String, String> createRow(Integer num,
+                                          String[] rows, Map<Integer, String> mapping) {
         String[] cells = rows[num].split(",");
         return IntStream.range(0, cells.length)
                 .boxed()

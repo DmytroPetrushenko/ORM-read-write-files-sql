@@ -1,23 +1,18 @@
 package com.knubisoft.service;
 
+import com.knubisoft.dto.DataReadWriteSource;
+import com.knubisoft.dto.Table;
+import com.knubisoft.util.StrategyUtil;
+import com.knubisoft.util.TypeFieldsUtil;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import com.knubisoft.dto.DataReadWriteSource;
-import com.knubisoft.dto.Table;
-import com.knubisoft.strategy.ReaderStrategy;
-import com.knubisoft.strategy.WriterStrategy;
-import com.knubisoft.util.StrategyUtil;
-import com.knubisoft.util.TypeFieldsUtil;
 import lombok.SneakyThrows;
-import org.reflections.Reflections;
 
-public class ORM implements ORMInterface {
+public class Orm implements OrmInterface {
     private final StrategyUtil strategyUtil = new StrategyUtil();
-
 
     @Override
     public <T> List<T> readAll(DataReadWriteSource data, Class<?> clazz) {
@@ -54,7 +49,8 @@ public class ORM implements ORMInterface {
     private void fillEntity(Object instance, Map.Entry<String, String> entry) {
         Field field = instance.getClass().getDeclaredField(entry.getKey());
         field.setAccessible(true);
-        Object value = TypeFieldsUtil.getObject().transformStringToTypeField(entry.getValue(), field);
+        Object value = TypeFieldsUtil.getObject()
+                .transformStringToTypeField(entry.getValue(), field);
         field.set(instance, value);
     }
 

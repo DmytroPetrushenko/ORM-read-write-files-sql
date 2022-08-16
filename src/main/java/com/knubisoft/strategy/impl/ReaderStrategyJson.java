@@ -4,14 +4,14 @@ import com.knubisoft.dto.DataReadWriteSource;
 import com.knubisoft.dto.StringReadWriteSource;
 import com.knubisoft.dto.Table;
 import com.knubisoft.strategy.ReaderStrategy;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ReaderStrategyJson implements ReaderStrategy<DataReadWriteSource> {
-    private final static String PATTERN = "\\[.*\\{.+\\}+.*\\]";
+    private static final String PATTERN = "\\[.*\\{.+\\}+.*\\]";
+
     @Override
     public boolean isApplied(DataReadWriteSource content) {
         return content instanceof StringReadWriteSource

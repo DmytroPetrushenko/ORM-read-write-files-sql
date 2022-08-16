@@ -37,7 +37,8 @@ public class WriterStrategyString<T extends DataReadWriteSource> implements Writ
     private <V> String makeValuesInString(V entity) {
         StringBuilder builder = new StringBuilder();
         Field[] declaredFields = entity.getClass().getDeclaredFields();
-        Arrays.stream(declaredFields).forEach(field -> builder.append(getValueFromField(field, entity)).append(","));
+        Arrays.stream(declaredFields).forEach(field
+                -> builder.append(getValueFromField(field, entity)).append(","));
         String string = builder.toString();
         return string.substring(0, string.length() - 1);
     }
